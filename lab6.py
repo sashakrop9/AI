@@ -55,6 +55,30 @@ def print_operation_table(operation, table_rows=9, table_column=9):
         print()
 
 
+def check_password(func):
+    flag = True
+
+    def wrapper(n):
+        nonlocal flag
+        if flag:
+            if input('Пароль: ') != '123':
+                print("В доступе отказано")
+                return None
+            else:
+                flag = False
+                return func(n)
+
+    return wrapper
+
+
+@check_password
+def fibonacci(n):
+    f1 = f2 = 1
+    for i in range(2, n):
+        f1, f2 = f2, f1 + f2
+    return f2
+
+
 if lesson == 1:
     lst = [1, 2, 3, 4, 5, 6]
     print(list(filter(lambda x: x < 5, lst)))
@@ -121,3 +145,5 @@ elif lesson == 14:
 elif lesson == 15:
     print('True') if (any(int(number) == 0 for number in list(input().split()))) else print('False')
 
+elif lesson == 18:
+    print(fibonacci(10))
